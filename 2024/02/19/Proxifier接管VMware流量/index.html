@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="很多时候，攻击时需要在纯净的武器库虚拟机中完成自己的渗透，因为有些蜜罐会尝试获取浏览器的Cookie和本地文件等相关信息，导致容易被溯源。 所以可以使用clash+proxifier直接接管所有本地虚拟机的流量。 接下来就是具体的操作步骤。  安装Proxifier，安装步骤非常简单，这里就不多介绍了。  安装完成后，Proxifier添加代理服务器，设置如下：   接下来，添加代理规则">
+    <meta name="description" content="很多时候，攻击时需要在虚拟机中完成，因为有些蜜罐会尝试获取浏览器的Cookie和本地文件等相关信息，导致容易被溯源。 所以可以使用clash+proxifier直接接管所有本地虚拟机的流量。 接下来就是具体的操作步骤。  安装Proxifier，安装步骤非常简单，这里就不多介绍了。  安装完成后，Proxifier添加代理服务器，设置如下：   接下来，添加代理规则  另外，对于VMware 17">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Proxifier接管VMware流量">
 <meta property="og:url" content="http://blog.p0w1rsh4ll.cn/2024/02/19/Proxifier%E6%8E%A5%E7%AE%A1VMware%E6%B5%81%E9%87%8F/index.html">
 <meta property="og:site_name" content="p0w1rSh4ll&#39;s blog">
-<meta property="og:description" content="很多时候，攻击时需要在纯净的武器库虚拟机中完成自己的渗透，因为有些蜜罐会尝试获取浏览器的Cookie和本地文件等相关信息，导致容易被溯源。 所以可以使用clash+proxifier直接接管所有本地虚拟机的流量。 接下来就是具体的操作步骤。  安装Proxifier，安装步骤非常简单，这里就不多介绍了。  安装完成后，Proxifier添加代理服务器，设置如下：   接下来，添加代理规则">
+<meta property="og:description" content="很多时候，攻击时需要在虚拟机中完成，因为有些蜜罐会尝试获取浏览器的Cookie和本地文件等相关信息，导致容易被溯源。 所以可以使用clash+proxifier直接接管所有本地虚拟机的流量。 接下来就是具体的操作步骤。  安装Proxifier，安装步骤非常简单，这里就不多介绍了。  安装完成后，Proxifier添加代理服务器，设置如下：   接下来，添加代理规则  另外，对于VMware 17">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://blog.p0w1rsh4ll.cn/imgs/$%7Bfiilename%7D/1708322191724-d70aa74b-d8c3-479a-a518-46bde7187db6.png">
 <meta property="og:image" content="http://blog.p0w1rsh4ll.cn/imgs/$%7Bfiilename%7D/1708331361634-970e8a07-626b-45bb-a920-c60bae2e23ad.png">
 <meta property="og:image" content="http://blog.p0w1rsh4ll.cn/imgs/$%7Bfiilename%7D/1708322618997-9b5534ec-fa9d-43a4-95ff-d6ed9d6bcc6d.png">
 <meta property="og:image" content="http://blog.p0w1rsh4ll.cn/imgs/$%7Bfiilename%7D/image-20240219235921312.png">
 <meta property="article:published_time" content="2024-02-19T15:47:49.000Z">
-<meta property="article:modified_time" content="2024-02-19T15:59:52.178Z">
+<meta property="article:modified_time" content="2024-02-19T16:31:34.308Z">
 <meta property="article:author" content="p0w1rSh4ll">
 <meta property="article:tag" content="tools">
 <meta name="twitter:card" content="summary">
@@ -168,7 +168,7 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <p>很多时候，攻击时需要在纯净的武器库虚拟机中完成自己的渗透，因为有些蜜罐会尝试获取浏览器的Cookie和本地文件等相关信息，导致容易被溯源。</p>
+    <p>很多时候，攻击时需要在虚拟机中完成，因为有些蜜罐会尝试获取浏览器的Cookie和本地文件等相关信息，导致容易被溯源。</p>
 <p>所以可以使用clash+proxifier直接接管所有本地虚拟机的流量。</p>
 <p>接下来就是具体的操作步骤。</p>
 <ol>
@@ -177,16 +177,12 @@
 <li><p>安装完成后，Proxifier添加代理服务器，设置如下：</p>
 <p><img src="/../imgs/$%7Bfiilename%7D/1708322191724-d70aa74b-d8c3-479a-a518-46bde7187db6.png"></p>
 </li>
-<li><p>接下来，添加代理规则</p>
+<li><p>接下来，添加代理规则<br><img src="/../imgs/$%7Bfiilename%7D/1708331361634-970e8a07-626b-45bb-a920-c60bae2e23ad.png"></p>
+</li>
+<li><p>另外，对于VMware 17+版本，还需要多一步操作，需要通过【配置文件】–&gt;【高级】–&gt;【服务和其他用户】，勾选以下两项（不然无法接管流量）：<br><img src="/../imgs/$%7Bfiilename%7D/1708322618997-9b5534ec-fa9d-43a4-95ff-d6ed9d6bcc6d.png"></p>
 </li>
 </ol>
-<p><img src="/../imgs/$%7Bfiilename%7D/1708331361634-970e8a07-626b-45bb-a920-c60bae2e23ad.png"></p>
-<ol start="3">
-<li>另外，对于VMware 17+版本，还需要多一步操作，需要通过【配置文件】–&gt;【高级】–&gt;【服务和其他用户】，勾选以下两项：</li>
-</ol>
-<p><img src="/../imgs/$%7Bfiilename%7D/1708322618997-9b5534ec-fa9d-43a4-95ff-d6ed9d6bcc6d.png"></p>
-<p>这样就配置完成了，接下来可以在虚拟机里面进行测试了，可以看到已经成功了。</p>
-<p><img src="/../imgs/$%7Bfiilename%7D/image-20240219235921312.png" alt="image-20240219235921312"></p>
+<p>这样就配置完成了，接下来可以在虚拟机里面进行测试了，可以看到已经成功了。<br><img src="/../imgs/$%7Bfiilename%7D/image-20240219235921312.png" alt="image-20240219235921312"></p>
 
   </div>
 </article>
