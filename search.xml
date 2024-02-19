@@ -101,4 +101,34 @@
         <tag>WriteUp</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Proxifier接管VMware流量</title>
+    <url>/2024/02/19/Proxifier%E6%8E%A5%E7%AE%A1VMware%E6%B5%81%E9%87%8F/</url>
+    <content><![CDATA[<p>很多时候，攻击时需要在纯净的武器库虚拟机中完成自己的渗透，因为有些蜜罐会尝试获取浏览器的Cookie和本地文件等相关信息，导致容易被溯源。</p>
+<p>所以可以使用clash+proxifier直接接管所有本地虚拟机的流量。</p>
+<p>接下来就是具体的操作步骤。</p>
+<ol>
+<li><p>安装Proxifier，安装步骤非常简单，这里就不多介绍了。</p>
+</li>
+<li><p>安装完成后，Proxifier添加代理服务器，设置如下：</p>
+<p><img src="/../imgs/$%7Bfiilename%7D/1708322191724-d70aa74b-d8c3-479a-a518-46bde7187db6.png"></p>
+</li>
+<li><p>接下来，添加代理规则</p>
+</li>
+</ol>
+<p><img src="/../imgs/$%7Bfiilename%7D/1708331361634-970e8a07-626b-45bb-a920-c60bae2e23ad.png"></p>
+<ol start="3">
+<li>另外，对于VMware 17+版本，还需要多一步操作，需要通过【配置文件】–&gt;【高级】–&gt;【服务和其他用户】，勾选以下两项：</li>
+</ol>
+<p><img src="/../imgs/$%7Bfiilename%7D/1708322618997-9b5534ec-fa9d-43a4-95ff-d6ed9d6bcc6d.png"></p>
+<p>这样就配置完成了，接下来可以在虚拟机里面进行测试了，可以看到已经成功了。</p>
+<p><img src="/../imgs/$%7Bfiilename%7D/image-20240219235921312.png" alt="image-20240219235921312"></p>
+]]></content>
+      <categories>
+        <category>Security</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+      </tags>
+  </entry>
 </search>
