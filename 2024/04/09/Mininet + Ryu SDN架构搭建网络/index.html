@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://blog.p0w1rsh4ll.cn/$%7Bfiilename%7D/image-20240409194428275.png">
 <meta property="og:image" content="http://blog.p0w1rsh4ll.cn/$%7Bfiilename%7D/image-20240409194440187.png">
 <meta property="article:published_time" content="2024-04-09T07:52:02.979Z">
-<meta property="article:modified_time" content="2024-04-09T11:49:56.932Z">
+<meta property="article:modified_time" content="2024-04-09T12:13:55.481Z">
 <meta property="article:author" content="p0w1rSh4ll">
 <meta property="article:tag" content="Network">
 <meta property="article:tag" content="SDN">
@@ -180,9 +180,9 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <p><span style="font-size:16px; font-weight:bold; color:#eb50ce;">Mininet</span> 是一个强大的网络仿真器，可以在单个系统上模拟复杂的网络环境。它利用Linux的网络命名空间创建一个由虚拟主机、交换机、路由器和链路组成的网络，并且这个网络的行为表现得就像是一个真实的物理网络一样。Mininet 特别适合于SDN和OpenFlow协议的开发和测试，因为它支持使用自定义控制器来控制网络中的虚拟交换机。在Mininet环境中，用户可以快速启动、修改网络拓扑，并且可以实时地测试网络配置和应用程序。</p>
+    <p><span style="font-size:22px; font-weight:bold; color:#eb50ce;">Mininet</span> 是一个强大的网络仿真器，可以在单个系统上模拟复杂的网络环境。它利用Linux的网络命名空间创建一个由虚拟主机、交换机、路由器和链路组成的网络，并且这个网络的行为表现得就像是一个真实的物理网络一样。Mininet 特别适合于SDN和OpenFlow协议的开发和测试，因为它支持使用自定义控制器来控制网络中的虚拟交换机。在Mininet环境中，用户可以快速启动、修改网络拓扑，并且可以实时地测试网络配置和应用程序。</p>
 <p>Mininet承担的是<strong>网络创建和管理</strong>的角色。它负责模拟网络设备和拓扑，并提供了一个实验平台，让用户可以在虚拟环境中测试他们的SDN解决方案。</p>
-<p><span style="font-size:16px; font-weight:bold; color:#eb50ce;">Ryu</span> 是一个用Python编写的SDN控制器框架，提供了一套完整的控制器功能，允许开发人员编写自己的网络管理和控制程序。Ryu 支持多种SDN协议，包括OpenFlow，是开发和测试SDN应用程序的理想选择。Ryu控制器允许开发人员创建用于定义网络流量处理方式的策略和规则。</p>
+<p><span style="font-size:22px; font-weight:bold; color:#eb50ce;">Ryu</span> 是一个用Python编写的SDN控制器框架，提供了一套完整的控制器功能，允许开发人员编写自己的网络管理和控制程序。Ryu 支持多种SDN协议，包括OpenFlow，是开发和测试SDN应用程序的理想选择。Ryu控制器允许开发人员创建用于定义网络流量处理方式的策略和规则。</p>
 <p>在 Mininet + Ryu 的环境中，Ryu 承担的是<strong>网络控制和管理</strong>的角色。Ryu 控制器与Mininet仿真的网络设备进行通信，控制网络流量的流向，并且实施网络策略。</p>
 <h2 id="Mininet-Ryu-安装"><a href="#Mininet-Ryu-安装" class="headerlink" title="Mininet + Ryu 安装"></a>Mininet + Ryu 安装</h2><p>安装环境及版本需求：</p>
 <ul>
