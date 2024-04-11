@@ -63,32 +63,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Proxifier接管VMware流量</title>
-    <url>/2024/02/19/Proxifier%E6%8E%A5%E7%AE%A1VMware%E6%B5%81%E9%87%8F/</url>
-    <content><![CDATA[<p>很多时候，攻击时需要在虚拟机中完成，因为有些蜜罐会尝试获取浏览器的Cookie和本地文件等相关信息，导致容易被溯源。</p>
-<p>所以可以使用clash+proxifier直接接管所有本地虚拟机的流量。</p>
-<p>接下来就是具体的操作步骤。</p>
-<ol>
-<li><p>安装Proxifier，安装步骤非常简单，这里就不多介绍了。</p>
-</li>
-<li><p>安装完成后，Proxifier添加代理服务器，设置如下：</p>
-<p><img src="/../imgs/$%7Bfiilename%7D/1708322191724-d70aa74b-d8c3-479a-a518-46bde7187db6.png"></p>
-</li>
-<li><p>接下来，添加代理规则<br><img src="/../imgs/$%7Bfiilename%7D/1708331361634-970e8a07-626b-45bb-a920-c60bae2e23ad.png"></p>
-</li>
-<li><p>另外，对于VMware 17+版本，还需要多一步操作，需要通过【配置文件】–&gt;【高级】–&gt;【服务和其他用户】，勾选以下两项（不然无法接管流量）：<br><img src="/../imgs/$%7Bfiilename%7D/1708322618997-9b5534ec-fa9d-43a4-95ff-d6ed9d6bcc6d.png"></p>
-</li>
-</ol>
-<p>这样就配置完成了，接下来可以在虚拟机里面进行测试了，可以看到已经成功了。<br><img src="/../imgs/$%7Bfiilename%7D/image-20240219235921312.png" alt="image-20240219235921312"></p>
-]]></content>
-      <categories>
-        <category>Security</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>从零开始：Mininet + Ryu 搭建SDN软件定义网络环境</title>
     <url>/2024/04/09/Mininet%20+%20Ryu%20SDN%E6%9E%B6%E6%9E%84%E6%90%AD%E5%BB%BA%E7%BD%91%E7%BB%9C/</url>
     <content><![CDATA[<p><span style="font-size:22px; font-weight:bold; color:#eb50ce;">Mininet</span> 是一个强大的网络仿真器，可以在单个系统上模拟复杂的网络环境。它利用Linux的网络命名空间创建一个由虚拟主机、交换机、路由器和链路组成的网络，并且这个网络的行为表现得就像是一个真实的物理网络一样。Mininet 特别适合于SDN和OpenFlow协议的开发和测试，因为它支持使用自定义控制器来控制网络中的虚拟交换机。在Mininet环境中，用户可以快速启动、修改网络拓扑，并且可以实时地测试网络配置和应用程序。</p>
@@ -213,6 +187,32 @@
       </categories>
       <tags>
         <tag>WriteUp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Proxifier接管VMware流量</title>
+    <url>/2024/02/19/Proxifier%E6%8E%A5%E7%AE%A1VMware%E6%B5%81%E9%87%8F/</url>
+    <content><![CDATA[<p>很多时候，攻击时需要在虚拟机中完成，因为有些蜜罐会尝试获取浏览器的Cookie和本地文件等相关信息，导致容易被溯源。</p>
+<p>所以可以使用clash+proxifier直接接管所有本地虚拟机的流量。</p>
+<p>接下来就是具体的操作步骤。</p>
+<ol>
+<li><p>安装Proxifier，安装步骤非常简单，这里就不多介绍了。</p>
+</li>
+<li><p>安装完成后，Proxifier添加代理服务器，设置如下：</p>
+<p><img src="/../imgs/$%7Bfiilename%7D/1708322191724-d70aa74b-d8c3-479a-a518-46bde7187db6.png"></p>
+</li>
+<li><p>接下来，添加代理规则<br><img src="/../imgs/$%7Bfiilename%7D/1708331361634-970e8a07-626b-45bb-a920-c60bae2e23ad.png"></p>
+</li>
+<li><p>另外，对于VMware 17+版本，还需要多一步操作，需要通过【配置文件】–&gt;【高级】–&gt;【服务和其他用户】，勾选以下两项（不然无法接管流量）：<br><img src="/../imgs/$%7Bfiilename%7D/1708322618997-9b5534ec-fa9d-43a4-95ff-d6ed9d6bcc6d.png"></p>
+</li>
+</ol>
+<p>这样就配置完成了，接下来可以在虚拟机里面进行测试了，可以看到已经成功了。<br><img src="/../imgs/$%7Bfiilename%7D/image-20240219235921312.png" alt="image-20240219235921312"></p>
+]]></content>
+      <categories>
+        <category>Security</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
       </tags>
   </entry>
 </search>

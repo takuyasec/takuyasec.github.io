@@ -436,8 +436,8 @@ body td {
 }
 @font-face {
   font-style: normal;
-  font-family: "LXGW WenKai";
-  src: local("LXGW WenKai"), url("https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css");
+  font-family: "LXGW WenKai Screen";
+  src: local("LXGW WenKai Screen"), url("https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css");
 }
 *,
 *:before,
