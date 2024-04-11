@@ -419,7 +419,7 @@ body table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 18px;
+  font-size: 14px;
   overflow: auto;
   display: block;
 }
@@ -428,7 +428,7 @@ body th {
   border-bottom: 1px dashed #908d8d;
   color: #eee;
   font-weight: bold;
-  font-size: 19px;
+  font-size: 15px;
 }
 body td {
   padding: 0 8px;
@@ -437,7 +437,7 @@ body td {
 @font-face {
   font-style: normal;
   font-family: "LXGW WenKai";
-  src: local("LXGW WenKai"), url("../lib/lxgw/LXGWWenKai-Regular.ttf");
+  src: local("LXGW WenKai"), url("https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css");
 }
 *,
 *:before,
@@ -481,7 +481,7 @@ body {
   background-color: #1d1f21;
   color: #c9cacc;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 16px;
   font-family: "LXGW WenKai", "LXGW WenKai", monospace;
   line-height: 1.725;
   text-rendering: geometricPrecision;
@@ -1415,7 +1415,7 @@ article .content .caption {
   color: #1d1f21;
   font-display: swap;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 12.8px;
   font-family: "LXGW WenKai", "LXGW WenKai", monospace;
   line-height: 1.725;
   text-rendering: geometricPrecision;
